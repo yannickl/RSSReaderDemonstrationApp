@@ -77,7 +77,7 @@
 
                 [channelEntity addItemsObject:itemEntity];
             }
-            NSLog(@"count channelEntity: %d", [channelEntity.items count]);
+
             // Push to parent
             NSError *error;
             if (![backgroundContext save:&error]) {

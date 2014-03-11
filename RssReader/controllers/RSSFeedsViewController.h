@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSSFeedsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface RSSFeedsViewController : UITableViewController
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;
 
 @end

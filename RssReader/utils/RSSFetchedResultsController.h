@@ -14,8 +14,8 @@ typedef void (^ RSSConfigureCellBlock) (UITableViewCell *cell, NSIndexPath *inde
 @property (nonatomic, strong) RSSConfigureCellBlock configureCell;
 
 /**
- * @abstract Creates and retuns a fetched result controller with a given entity name, a managed object context and a table view.
+ * @abstract Creates and retuns a fetched result controller with a given entity name, a managed object context, a table view and a predicate.
  */
-+ (instancetype)rssFetchedResultControllerWithEntityName:(NSString *)entityName inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView;
++ (instancetype)rssFetchedResultControllerWithEntityName:(NSString *)entityName inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView andPredicate:(NSPredicate *)predicate;
 
 @end

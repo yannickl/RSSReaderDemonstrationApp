@@ -1,65 +1,42 @@
 //
-//  RSSFeedsViewController.m
+//  RSSChannelViewController.m
 //  RssReader
 //
-//  Created by YannickL on 10/03/14.
+//  Created by YannickL on 11/03/14.
 //  Copyright (c) 2014 Yannick Loriot. All rights reserved.
 //
 
-#import "RSSFeedsViewController.h"
+#import "RSSChannelViewController.h"
 #import "RSSFetchedResultsController.h"
 
-#import "RSSAddFeedViewController.h"
-#import "RSSChannelViewController.h"
-
-#import "RSSChannelEntity.h"
+#import "RSSItemEntity.h"
 #import "NSManagedObject+RssReader.h"
 
 // Constants
-static NSString * const kRSSFeedDisplayAddFeedVCSegueName = @"RSSFeedDisplayAddNewFeedSegue";
-static NSString * const kRSSFeedDisplayEntriesVCSegueName = @"RSSFeedDisplayEntriesSegue";
+static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
-static NSString * const kRSSFeedCellName = @"RSSChannelCell";
-
-@interface RSSFeedsViewController ()
+@interface RSSChannelViewController ()
 @property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
 
 @end
 
-@implementation RSSFeedsViewController
+@implementation RSSChannelViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithEntityName:[RSSChannelEntity rss_name] inManagedObjectContext:_mainObjectContext withTableView:self.tableView andPredicate:nil];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel == %@", _channelID];
+    
+    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithEntityName:[RSSItemEntity rss_name] inManagedObjectContext:_mainObjectContext withTableView:self.tableView andPredicate:predicate];
     
     __weak typeof(self) weakSelf = self;
     self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
-        RSSChannelEntity *channel = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
-        cell.textLabel.text       = [channel title];
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu entries", @"Displayed the number of entries"), (unsigned long)[channel.items count]];
+        RSSItemEntity *item       = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
+        cell.textLabel.text       = [item title];
     };
     _fetchedResultsController.configureCell = _configureCell;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:kRSSFeedDisplayAddFeedVCSegueName]) {
-        RSSAddFeedViewController *vc = [segue destinationViewController];
-        vc.mainObjectContext         = _mainObjectContext;
-    }
-    else if ([[segue identifier] isEqualToString:kRSSFeedDisplayEntriesVCSegueName]) {
-        NSIndexPath *indexPath  = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        
-        RSSChannelViewController *vc = [segue destinationViewController];
-        vc.mainObjectContext         = _mainObjectContext;
-        vc.channelID                 = object.objectID;
-    }
 }
 
 #pragma mark - Table View
@@ -100,5 +77,4 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
         }
     }
 }
-
 @end

@@ -20,18 +20,23 @@
 @synthesize objectContext = _objectContext;
 @synthesize tableView     = _tableView;
 
-+ (instancetype)rssFetchedResultControllerWithEntityName:(NSString *)entityName inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView
++ (instancetype)rssFetchedResultControllerWithEntityName:(NSString *)entityName inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView andPredicate:(NSPredicate *)predicate
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity  = [NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    // Set the predicate
+    if (predicate) {
+        [fetchRequest setPredicate:predicate];
+    }
+    
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptor];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pubDate" ascending:NO];
+    NSArray *sortDescriptors         = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
