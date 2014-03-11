@@ -8,11 +8,15 @@
 
 #import "RSSChannelViewController.h"
 #import "RSSFetchedResultsController.h"
+#import "RSSItemViewController.h"
 
+#import "RSSChannelEntity.h"
 #import "RSSItemEntity.h"
 #import "NSManagedObject+RssReader.h"
 
 // Constants
+static NSString * const kRSSFeedDisplayItemVCSegueName = @"RSSFeedDisplayItemSegue";
+
 static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 @interface RSSChannelViewController ()
@@ -27,6 +31,9 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 {
     [super viewDidLoad];
     
+    /*RSSChannelEntity *currentChannel = [RSSChannelEntity rss_findFirstByAttribute:@"objectID" withValue:_channelID inContext:_mainObjectContext];
+    self.title                       = currentChannel.title;*/
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"channel == %@", _channelID];
     
     _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithEntityName:[RSSItemEntity rss_name] inManagedObjectContext:_mainObjectContext withTableView:self.tableView andPredicate:predicate];
@@ -37,6 +44,14 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
         cell.textLabel.text       = [item title];
     };
     _fetchedResultsController.configureCell = _configureCell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:kRSSFeedDisplayItemVCSegueName]) {
+        RSSItemViewController *vc = [segue destinationViewController];
+        vc.mainObjectContext      = _mainObjectContext;
+    }
 }
 
 #pragma mark - Table View

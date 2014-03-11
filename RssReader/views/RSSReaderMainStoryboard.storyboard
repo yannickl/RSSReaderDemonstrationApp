@@ -194,6 +194,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="9IF-eq-73o" kind="push" identifier="RSSFeedDisplayItemSegue" id="P4J-d9-IPb"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -206,6 +209,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UHo-AQ-8mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="161" y="347"/>
+        </scene>
+        <!--Item View Controller-->
+        <scene sceneID="UBM-Ye-PP8">
+            <objects>
+                <viewController id="9IF-eq-73o" customClass="RSSItemViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7nV-Sq-RAK">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="peG-z0-bzj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1VN-ec-iPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="632" y="347"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

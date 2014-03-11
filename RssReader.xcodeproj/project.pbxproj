@@ -34,6 +34,7 @@
 		F48545B418CFA80A002E793E /* NSManagedObject+RssReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */; };
 		F48545B718CFBABB002E793E /* RSSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedResultsController.m */; };
 		F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B918CFC5C3002E793E /* RSSChannelViewController.m */; };
+		F48545BD18CFC9E8002E793E /* RSSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545BC18CFC9E8002E793E /* RSSItemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		F48545B618CFBABB002E793E /* RSSFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFetchedResultsController.m; sourceTree = "<group>"; };
 		F48545B818CFC5C3002E793E /* RSSChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannelViewController.h; sourceTree = "<group>"; };
 		F48545B918CFC5C3002E793E /* RSSChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannelViewController.m; sourceTree = "<group>"; };
+		F48545BB18CFC9E8002E793E /* RSSItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItemViewController.h; sourceTree = "<group>"; };
+		F48545BC18CFC9E8002E793E /* RSSItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +233,8 @@
 				F404A09B18CE597400B78A97 /* RSSAddFeedViewController.m */,
 				F48545B818CFC5C3002E793E /* RSSChannelViewController.h */,
 				F48545B918CFC5C3002E793E /* RSSChannelViewController.m */,
+				F48545BB18CFC9E8002E793E /* RSSItemViewController.h */,
+				F48545BC18CFC9E8002E793E /* RSSItemViewController.m */,
 			);
 			name = Controllers;
 			path = controllers;
@@ -373,6 +378,7 @@
 				F404A05718CE534D00B78A97 /* main.m in Sources */,
 				F404A08D18CE55C800B78A97 /* RSSChannelEntity.m in Sources */,
 				F48545B718CFBABB002E793E /* RSSFetchedResultsController.m in Sources */,
+				F48545BD18CFC9E8002E793E /* RSSItemViewController.m in Sources */,
 				F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */,
 				F404A0AA18CE640E00B78A97 /* RSSFeedChannelXML.m in Sources */,
 				F404A0AD18CE641B00B78A97 /* RSSFeedItemXML.m in Sources */,
