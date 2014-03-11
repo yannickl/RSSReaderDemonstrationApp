@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="8UB-c9-QV2">
+    <dependencies>
+        <deployment version="1280" defaultVersion="1280" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="BK1-7N-iYt">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="8UB-c9-QV2" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="8fh-EL-Grx">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mtK-Ex-RFC" kind="relationship" relationship="rootViewController" id="0s1-5X-d7h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Fi-Cu-gJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="27"/>
+        </scene>
+        <!--Feeds View Controller - Feed List-->
+        <scene sceneID="JS6-q1-QCv">
+            <objects>
+                <tableViewController id="mtK-Ex-RFC" customClass="RSSFeedsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="dmH-lN-et0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="m1F-lK-XqM" detailTextLabel="eoy-Hz-gEP" rowHeight="50" style="IBUITableViewCellStyleSubtitle" id="ORL-TK-Y3n">
+                                <rect key="frame" x="0.0" y="22" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ORL-TK-Y3n" id="ZW9-vI-33k">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="49"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m1F-lK-XqM">
+                                            <rect key="frame" x="10" y="5" width="36" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eoy-Hz-gEP">
+                                            <rect key="frame" x="10" y="27" width="47" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="1ad-tJ-LPb" kind="push" identifier="RSSFeedDisplayEntriesSegue" id="UOB-nq-jAg"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mtK-Ex-RFC" id="Dop-OA-iB7"/>
+                            <outlet property="delegate" destination="mtK-Ex-RFC" id="TLu-fG-8VR"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Feed List" id="cAO-Xq-hbk">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9US-r0-4bS">
+                            <connections>
+                                <segue destination="dpK-yM-7Vu" kind="push" identifier="RSSFeedDisplayAddNewFeedSegue" id="JgJ-Oq-lx9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ePJ-bP-BH2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-379" y="27"/>
+        </scene>
+        <!--Add Feed View Controller - Add New Feeds-->
+        <scene sceneID="A0N-4G-vXF">
+            <objects>
+                <viewController id="dpK-yM-7Vu" customClass="RSSAddFeedViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Gs-xj-Lba">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the feed URL:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uxn-mm-cTj">
+                                <rect key="frame" x="20" y="20" width="151" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://yannickloriot.com/rss" borderStyle="roundedRect" placeholder="http://yannickloriot.com/rss" minimumFontSize="17" clearButtonMode="whileEditing" id="Vx3-2R-fSy">
+                                <rect key="frame" x="20" y="49" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dpK-yM-7Vu" id="Poy-bo-rac"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AbH-8m-rcj">
+                                <rect key="frame" x="20" y="87" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Test URL">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testFeedURLAction:" destination="dpK-yM-7Vu" eventType="touchUpInside" id="8vg-7f-Tfx"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="fBr-O6-NIX">
+                                <rect key="frame" x="20" y="138" width="280" height="212"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s7p-Rb-QDj">
+                                        <rect key="frame" x="0.0" y="20" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="hkF-iu-vCU">
+                                        <rect key="frame" x="0.0" y="49" width="103" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HSP-69-gOw">
+                                        <rect key="frame" x="111" y="49" width="169" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="V2G-Co-IIT">
+                                        <rect key="frame" x="0.0" y="160" width="280" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Add">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addFeedAction:" destination="dpK-yM-7Vu" eventType="touchUpInside" id="udi-B7-1mo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add New Feeds" id="PB7-vk-Eq1"/>
+                    <connections>
+                        <outlet property="currentFeedAddButton" destination="V2G-Co-IIT" id="iRG-9k-4nY"/>
+                        <outlet property="currentFeedSummaryLabel" destination="HSP-69-gOw" id="Yv9-bc-UpV"/>
+                        <outlet property="currentFeedThumbnailImageView" destination="hkF-iu-vCU" id="jGM-Cc-om6"/>
+                        <outlet property="currentFeedTitleLabel" destination="s7p-Rb-QDj" id="ibh-OP-zR8"/>
+                        <outlet property="currentFeedView" destination="fBr-O6-NIX" id="z3W-6g-bHp"/>
+                        <outlet property="testURLButton" destination="AbH-8m-rcj" id="60j-au-5fn"/>
+                        <outlet property="urlTextField" destination="Vx3-2R-fSy" id="2Ii-DQ-By8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RU6-mR-OIf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="161" y="-339"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="QzO-ag-o9Y">
+            <objects>
+                <tableViewController id="1ad-tJ-LPb" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5xV-wv-Uyi">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KBF-vX-qxX">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KBF-vX-qxX" id="Mug-tq-v1t">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1ad-tJ-LPb" id="Yel-VH-Sv9"/>
+                            <outlet property="delegate" destination="1ad-tJ-LPb" id="Bws-oP-T29"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="0DR-wf-GA7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UHo-AQ-8mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="161" y="347"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

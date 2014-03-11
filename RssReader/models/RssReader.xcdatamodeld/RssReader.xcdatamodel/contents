@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13C64" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="RSSChannelEntity" representedClassName="RSSChannelEntity" syncable="YES">
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="src" attributeType="String" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RSSItemEntity" inverseName="channel" inverseEntity="RSSItemEntity" syncable="YES"/>
+    </entity>
+    <entity name="RSSItemEntity" representedClassName="RSSItemEntity" syncable="YES">
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="markAsRead" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="pubDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="channel" maxCount="1" deletionRule="Nullify" destinationEntity="RSSChannelEntity" inverseName="items" inverseEntity="RSSChannelEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="RSSItemEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="RSSChannelEntity" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
