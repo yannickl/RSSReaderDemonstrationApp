@@ -40,7 +40,10 @@
     
     // Setup KVO
     [self addObserver:self forKeyPath:@"currentChannel" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
-    self.currentChannel = nil;
+    
+    // Init UI
+    self.currentChannel   = nil;
+    self.statusLabel.text = @"";
     
     // Create the background queue to retrieve feeds
     _backgroundQueue                             = [[NSOperationQueue alloc] init];
@@ -109,7 +112,14 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         weakSelf.testURLButton.enabled = YES;
-        weakSelf.currentChannel        = channel;
+        
+        if (error) {
+            weakSelf.statusLabel.text = [error localizedDescription];
+        }
+        else {
+            weakSelf.statusLabel.text = @"success";
+            weakSelf.currentChannel   = channel;
+        }
     }];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

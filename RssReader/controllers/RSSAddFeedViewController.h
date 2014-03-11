@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *urlTextField;
 @property (weak, nonatomic) IBOutlet UIButton    *testURLButton;
+@property (weak, nonatomic) IBOutlet UILabel     *statusLabel;
 @property (weak, nonatomic) IBOutlet UIView      *currentFeedView;
 @property (weak, nonatomic) IBOutlet UILabel     *currentFeedTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentFeedSummaryLabel;
