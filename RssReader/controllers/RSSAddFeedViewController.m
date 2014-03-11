@@ -12,9 +12,7 @@
 
 #import "RSSChannelEntity.h"
 #import "RSSItemEntity.h"
-
-#define RSSAddFeedShowNetworkActivityIndicator() [UIApplication sharedApplication].networkActivityIndicatorVisible = YES
-#define RSSAddFeedHideNetworkActivityIndicator() [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
+#import "NSManagedObject+RssReader.h"
 
 @interface RSSAddFeedViewController ()
 @property (nonatomic, strong) NSOperationQueue  *backgroundQueue;
@@ -63,19 +61,17 @@
         backgroundContext.parentContext           = _mainObjectContext;
         
         [backgroundContext performBlock:^{
-            RSSChannelEntity *channelEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Channel" inManagedObjectContext:backgroundContext];
-            
-            channelEntity.src     = [_currentChannel.sourceURL description];
-            channelEntity.title   = _currentChannel.title;
-            channelEntity.summary = _currentChannel.summary;
+            RSSChannelEntity *channelEntity = [RSSChannelEntity rss_insertNewObjectIntoContext:backgroundContext];
+            channelEntity.src               = [_currentChannel.sourceURL description];
+            channelEntity.title             = _currentChannel.title;
+            channelEntity.summary           = _currentChannel.summary;
             
             for (RSSFeedChannelXML *itemXML in _currentChannel.items) {
-                RSSItemEntity *itemEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:backgroundContext];
-                
-                itemEntity.title      = itemXML.title;
-                itemEntity.summary    = itemXML.summary;
-                itemEntity.link       = itemXML.link;
-                itemEntity.markAsRead = @(NO);
+                RSSItemEntity *itemEntity = [RSSItemEntity rss_insertNewObjectIntoContext:backgroundContext];
+                itemEntity.title          = itemXML.title;
+                itemEntity.summary        = itemXML.summary;
+                itemEntity.link           = itemXML.link;
+                itemEntity.markAsRead     = @(NO);
                 
                 [channelEntity addItemsObject:itemEntity];
             }
@@ -88,7 +84,7 @@
             }
             
             // save parent to disk asynchronously
-            [_mainObjectContext performBlock:^{
+            [_mainObjectContext performBlock:^ {
                 NSError *error;
                 if (![_mainObjectContext save:&error]) {
                     // handle error
@@ -104,6 +100,7 @@
 - (void)testFeedAtURL:(NSURL *)feedURL {
     [_urlTextField resignFirstResponder];
     _testURLButton.enabled = NO;
+    self.currentChannel    = nil;
     
     RSSRequestFeedOperation *requestFeedOperation = [[RSSRequestFeedOperation alloc] initWithFeedURL:feedURL];
     
@@ -117,8 +114,15 @@
             weakSelf.statusLabel.text = [error localizedDescription];
         }
         else {
-            weakSelf.statusLabel.text = @"success";
-            weakSelf.currentChannel   = channel;
+            RSSChannelEntity *foundChannel = [RSSChannelEntity rss_findFirstByAttribute:@"src" withValue:channel.sourceURL inContext:weakSelf.mainObjectContext];
+            
+            if (foundChannel) {
+                weakSelf.statusLabel.text = @"The feed is already present in the list";
+            }
+            else {
+                weakSelf.statusLabel.text = @"success";
+                weakSelf.currentChannel   = channel;
+            }
         }
     }];
     
@@ -163,7 +167,7 @@
                 _currentFeedSummaryLabel.frame = summaryFrame;
             }
         }
-        NSLog(@"_currentFeedThumbnailImageView: %@", NSStringFromCGRect(_currentFeedThumbnailImageView.frame));
+
         _currentFeedView.hidden = (_currentChannel == nil);
     }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "RSSFeedsViewController.h"
+#import "RSSAddFeedViewController.h"
 
 // Constants
 static NSString * const kRSSFeedDisplayAddFeedVCSegueName = @"RSSFeedDisplayAddNewFeedSegue";
@@ -42,10 +43,12 @@ static NSString * const kRSSFeedChannelObjectName = @"Channel";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if ([[segue identifier] isEqualToString:kRSSFeedDisplayAddFeedVCSegueName]) {
+        RSSAddFeedViewController *vc = [segue destinationViewController];
+        vc.mainObjectContext         = _mainObjectContext;
+    }
 }
 
 #pragma mark - Table view data source
