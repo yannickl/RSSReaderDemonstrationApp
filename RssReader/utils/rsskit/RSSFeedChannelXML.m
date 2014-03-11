@@ -10,4 +10,11 @@
 
 @implementation RSSFeedChannelXML
 
+- (id)init {
+    if ((self = [super init])) {
+        _items = [NSMutableArray array];
+    }
+    return self;
+}
+
 @end

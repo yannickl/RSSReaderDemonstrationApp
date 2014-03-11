@@ -60,6 +60,7 @@
         NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         backgroundContext.parentContext           = _mainObjectContext;
         
+        __weak typeof(self) weakSelf = self;
         [backgroundContext performBlock:^{
             RSSChannelEntity *channelEntity = [RSSChannelEntity rss_insertNewObjectIntoContext:backgroundContext];
             channelEntity.src               = [_currentChannel.sourceURL description];
@@ -71,11 +72,12 @@
                 itemEntity.title          = itemXML.title;
                 itemEntity.summary        = itemXML.summary;
                 itemEntity.link           = itemXML.link;
+                itemEntity.pubDate        = [NSDate date];
                 itemEntity.markAsRead     = @(NO);
-                
+
                 [channelEntity addItemsObject:itemEntity];
             }
-            
+            NSLog(@"count channelEntity: %d", [channelEntity.items count]);
             // Push to parent
             NSError *error;
             if (![backgroundContext save:&error]) {
@@ -90,6 +92,8 @@
                     // handle error
                     NSLog(@"error: %@", error);
                 }
+                
+                [weakSelf.navigationController popViewControllerAnimated:YES];
             }];
         }];
     }
@@ -109,7 +113,7 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         weakSelf.testURLButton.enabled = YES;
-        
+
         if (error) {
             weakSelf.statusLabel.text = [error localizedDescription];
         }
@@ -117,10 +121,10 @@
             RSSChannelEntity *foundChannel = [RSSChannelEntity rss_findFirstByAttribute:@"src" withValue:channel.sourceURL inContext:weakSelf.mainObjectContext];
             
             if (foundChannel) {
-                weakSelf.statusLabel.text = @"The feed is already present in the list";
+                weakSelf.statusLabel.text = NSLocalizedString(@"The channel is already present in the feed", @"Status displayed when the channel is already present in the feed");
             }
             else {
-                weakSelf.statusLabel.text = @"success";
+                weakSelf.statusLabel.text = NSLocalizedString(@"success", @"Status displayed when the channel can be added");
                 weakSelf.currentChannel   = channel;
             }
         }
@@ -149,6 +153,7 @@
             // Layout the feed description/thumbnail
             CGRect thumbnailFrame = _currentFeedThumbnailImageView.frame;
             CGRect summaryFrame   = _currentFeedSummaryLabel.frame;
+            
             if (_currentChannel.thumbnail) {
                 thumbnailFrame.size.width            = thumbnailFrame.size.height;
                 _currentFeedThumbnailImageView.frame = thumbnailFrame;

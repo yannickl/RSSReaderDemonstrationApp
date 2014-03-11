@@ -7,7 +7,10 @@
 //
 
 #import "RSSFeedsViewController.h"
+#import "RSSFetchedResultsController.h"
 #import "RSSAddFeedViewController.h"
+#import "RSSChannelEntity.h"
+#import "NSManagedObject+RssReader.h"
 
 // Constants
 static NSString * const kRSSFeedDisplayAddFeedVCSegueName = @"RSSFeedDisplayAddNewFeedSegue";
@@ -18,29 +21,28 @@ static NSString * const kRSSFeedCellName = @"RSSFeedCell";
 static NSString * const kRSSFeedChannelObjectName = @"Channel";
 
 @interface RSSFeedsViewController ()
+@property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
 
 @end
 
 @implementation RSSFeedsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithEntityName:[RSSChannelEntity rss_name] inManagedObjectContext:_mainObjectContext withTableView:self.tableView];
+    
+    __weak typeof(self) weakSelf = self;
+    self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
+        RSSChannelEntity *channel = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
+        cell.textLabel.text       = [channel title];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu entries", @"Displayed the number of entries"), (unsigned long)[channel.items count]];
+    };
+    _fetchedResultsController.configureCell = _configureCell;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -51,81 +53,43 @@ static NSString * const kRSSFeedChannelObjectName = @"Channel";
     }
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRSSFeedCellName forIndexPath:indexPath];
+    _configureCell(cell, indexPath);
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end
