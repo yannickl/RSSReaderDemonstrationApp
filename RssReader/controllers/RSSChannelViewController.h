@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RSSFetchedDataSourceProtocol.h"
 
-@interface RSSChannelViewController : UITableViewController
+@interface RSSChannelViewController : UITableViewController <RSSFetchedDataSourceDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refrechButtonItem;
 
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;

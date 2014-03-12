@@ -35,7 +35,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     NSURLRequest *itemURLRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:_currentItem.link]];
     [_webView loadRequest:itemURLRequest];
 }

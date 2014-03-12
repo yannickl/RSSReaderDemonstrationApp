@@ -7,7 +7,7 @@
 //
 
 #import "RSSFeedsViewController.h"
-#import "RSSFetchedResultsController.h"
+#import "RSSFetchedDataSource.h"
 
 #import "RSSAddFeedViewController.h"
 #import "RSSChannelViewController.h"
@@ -22,13 +22,15 @@ static NSString * const kRSSFeedDisplayEntriesVCSegueName = @"RSSFeedDisplayEntr
 static NSString * const kRSSFeedCellName = @"RSSChannelCell";
 
 @interface RSSFeedsViewController ()
-@property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSFetchRequest              *fetchRequest;
-@property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
+@property (strong, nonatomic) RSSFetchedDataSource       *fetchedDataSource;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchRequest             *fetchRequest;
 
 @end
 
 @implementation RSSFeedsViewController
+
+#pragma mark - View Life Cycle
 
 - (void)viewDidLoad
 {
@@ -36,17 +38,28 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
 
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    // Setup the fetched result controller
-    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithRequest:self.fetchRequest inManagedObjectContext:self.mainObjectContext withTableView:self.tableView cacheName:kRSSFeedCellName];
     
-    __weak typeof(self) weakSelf = self;
-    self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
-        RSSChannelEntity *channel = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
-        cell.textLabel.text       = [channel title];
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@/%lu unread entries", @"Displayed the number of entries unread"), channel.unreadItems, (unsigned long)[channel.items count]];
-    };
-    _fetchedResultsController.configureCell = _configureCell;
+    // Setup the fetched result controller
+    _fetchedResultsController   = [RSSChannelEntity rss_fetchedResultsControllerWithRequest:self.fetchRequest inContext:_mainObjectContext];
+    _fetchedDataSource          = [[RSSFetchedDataSource alloc] initWithFetchedResultViewController:_fetchedResultsController tableView:self.tableView reuseIdentifier:kRSSFeedCellName];
+    _fetchedDataSource.delegate = self;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    _fetchedDataSource.paused = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    _fetchedDataSource.paused = YES;
+}
+
+#pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -73,7 +86,7 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
     }
     
     _fetchRequest               = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:[RSSChannelEntity rss_name] inManagedObjectContext:_mainObjectContext];
+    NSEntityDescription *entity = [RSSChannelEntity rss_entityInManagedObjectContext:_mainObjectContext];
     [_fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
@@ -88,25 +101,7 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
     return _fetchRequest;
 }
 
-#pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return [[self.fetchedResultsController sections] count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRSSFeedCellName forIndexPath:indexPath];
-    _configureCell(cell, indexPath);
-    return cell;
-}
+#pragma mark - RSSFetchedResultsDataSource Delegate Methods
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,8 +111,8 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        NSManagedObjectContext *context = [_fetchedResultsController managedObjectContext];
+        [context deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         
         NSError *error = nil;
         if (![context save:&error]) {
@@ -125,6 +120,12 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
             abort();
         }
     }
+}
+
+- (void)fetchedDataSource:(RSSFetchedDataSource *)fetchedDataSource needsConfigureCell:(UITableViewCell *)cell withObject:(RSSChannelEntity *)channel
+{
+    cell.textLabel.text       = [channel title];
+    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@/%lu unread entries", @"Displayed the number of entries unread"), channel.unreadItems, (unsigned long)[channel.items count]];
 }
 
 @end

@@ -20,6 +20,16 @@
     return [NSEntityDescription insertNewObjectForEntityForName:[self rss_name] inManagedObjectContext:context];
 }
 
++ (NSEntityDescription *)rss_entityInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    return [NSEntityDescription entityForName:[self rss_name] inManagedObjectContext:context];
+}
+
++ (NSFetchedResultsController *)rss_fetchedResultsControllerWithRequest:(NSFetchRequest *)request inContext:(NSManagedObjectContext *)context
+{
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+}
+
 #pragma mark - Find by ID
 
 + (instancetype)rss_findByID:(NSManagedObjectID *)objectID inContext:(NSManagedObjectContext *)context
@@ -88,10 +98,6 @@
 }
 
 #pragma mark - Private Methods
-
-+ (NSEntityDescription *)rss_entityInManagedObjectContext:(NSManagedObjectContext *)context {
-    return [NSEntityDescription entityForName:[self rss_name] inManagedObjectContext:context];
-}
 
 + (NSFetchRequest *)rss_requestAllByAttribute:(NSString *)property withValue:(id)value inContext:(NSManagedObjectContext *)context
 {

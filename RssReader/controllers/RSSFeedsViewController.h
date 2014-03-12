@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RSSFetchedDataSourceProtocol.h"
 
-@interface RSSFeedsViewController : UITableViewController
+@interface RSSFeedsViewController : UITableViewController <RSSFetchedDataSourceDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;
 
 @end

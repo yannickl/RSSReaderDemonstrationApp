@@ -20,6 +20,16 @@
  */
 + (instancetype)rss_insertNewObjectIntoContext:(NSManagedObjectContext *)context;
 
+/**
+ * @abstract Creates and returns the entity in a given context. 
+ */
++ (NSEntityDescription *)rss_entityInManagedObjectContext:(NSManagedObjectContext *)context;
+
+/**
+ * @abstract Creates and returns a fetched results controller with a given request from a given context
+ */
++ (NSFetchedResultsController *)rss_fetchedResultsControllerWithRequest:(NSFetchRequest *)request inContext:(NSManagedObjectContext *)context;
+
 #pragma mark - Find by ID
 
 /**

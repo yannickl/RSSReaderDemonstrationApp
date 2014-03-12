@@ -29,11 +29,11 @@
 		F404A0A718CE63D800B78A97 /* RSSFeedXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0A618CE63D800B78A97 /* RSSFeedXMLParser.m */; };
 		F404A0AA18CE640E00B78A97 /* RSSFeedChannelXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0A918CE640E00B78A97 /* RSSFeedChannelXML.m */; };
 		F404A0AD18CE641B00B78A97 /* RSSFeedItemXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0AC18CE641B00B78A97 /* RSSFeedItemXML.m */; };
+		F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */; };
 		F48545B418CFA80A002E793E /* NSManagedObject+RssReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */; };
-		F48545B718CFBABB002E793E /* RSSFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedResultsController.m */; };
+		F48545B718CFBABB002E793E /* RSSFetchedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */; };
 		F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B918CFC5C3002E793E /* RSSChannelViewController.m */; };
 		F48545BD18CFC9E8002E793E /* RSSItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545BC18CFC9E8002E793E /* RSSItemViewController.m */; };
-		F4C11BE518D06DC700E18F54 /* UITableViewCell+RSSConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C11BE418D06DC700E18F54 /* UITableViewCell+RSSConfiguration.m */; };
 		F4C11BE818D06FA300E18F54 /* RSSChannelEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C11BE718D06FA300E18F54 /* RSSChannelEntity.m */; };
 		F4C11BEB18D06FA300E18F54 /* RSSItemEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C11BEA18D06FA300E18F54 /* RSSItemEntity.m */; };
 /* End PBXBuildFile section */
@@ -80,16 +80,17 @@
 		F404A0A918CE640E00B78A97 /* RSSFeedChannelXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedChannelXML.m; sourceTree = "<group>"; };
 		F404A0AB18CE641B00B78A97 /* RSSFeedItemXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedItemXML.h; sourceTree = "<group>"; };
 		F404A0AC18CE641B00B78A97 /* RSSFeedItemXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedItemXML.m; sourceTree = "<group>"; };
+		F44E1DC918D0AE8A00E34061 /* RSSChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannelCell.h; sourceTree = "<group>"; };
+		F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannelCell.m; sourceTree = "<group>"; };
+		F44E1DCC18D0E6BF00E34061 /* RSSFetchedDataSourceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSourceProtocol.h; sourceTree = "<group>"; };
 		F48545B218CFA80A002E793E /* NSManagedObject+RssReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+RssReader.h"; sourceTree = "<group>"; };
 		F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+RssReader.m"; sourceTree = "<group>"; };
-		F48545B518CFBABB002E793E /* RSSFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFetchedResultsController.h; sourceTree = "<group>"; };
-		F48545B618CFBABB002E793E /* RSSFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFetchedResultsController.m; sourceTree = "<group>"; };
+		F48545B518CFBABB002E793E /* RSSFetchedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSource.h; sourceTree = "<group>"; };
+		F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFetchedDataSource.m; sourceTree = "<group>"; };
 		F48545B818CFC5C3002E793E /* RSSChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannelViewController.h; sourceTree = "<group>"; };
 		F48545B918CFC5C3002E793E /* RSSChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannelViewController.m; sourceTree = "<group>"; };
 		F48545BB18CFC9E8002E793E /* RSSItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItemViewController.h; sourceTree = "<group>"; };
 		F48545BC18CFC9E8002E793E /* RSSItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItemViewController.m; sourceTree = "<group>"; };
-		F4C11BE318D06DC700E18F54 /* UITableViewCell+RSSConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+RSSConfiguration.h"; sourceTree = "<group>"; };
-		F4C11BE418D06DC700E18F54 /* UITableViewCell+RSSConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+RSSConfiguration.m"; sourceTree = "<group>"; };
 		F4C11BE618D06FA300E18F54 /* RSSChannelEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannelEntity.h; sourceTree = "<group>"; };
 		F4C11BE718D06FA300E18F54 /* RSSChannelEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannelEntity.m; sourceTree = "<group>"; };
 		F4C11BE918D06FA300E18F54 /* RSSItemEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItemEntity.h; sourceTree = "<group>"; };
@@ -247,9 +248,11 @@
 			isa = PBXGroup;
 			children = (
 				F48545B118CFA80A002E793E /* Categories */,
+				F44E1DC818D0AE8A00E34061 /* Cells */,
 				F404A0A118CE63AA00B78A97 /* RSSKit */,
-				F48545B518CFBABB002E793E /* RSSFetchedResultsController.h */,
-				F48545B618CFBABB002E793E /* RSSFetchedResultsController.m */,
+				F44E1DCC18D0E6BF00E34061 /* RSSFetchedDataSourceProtocol.h */,
+				F48545B518CFBABB002E793E /* RSSFetchedDataSource.h */,
+				F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */,
 			);
 			name = Utils;
 			path = utils;
@@ -271,13 +274,21 @@
 			path = rsskit;
 			sourceTree = "<group>";
 		};
+		F44E1DC818D0AE8A00E34061 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F44E1DC918D0AE8A00E34061 /* RSSChannelCell.h */,
+				F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */,
+			);
+			name = Cells;
+			path = cells;
+			sourceTree = "<group>";
+		};
 		F48545B118CFA80A002E793E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				F48545B218CFA80A002E793E /* NSManagedObject+RssReader.h */,
 				F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */,
-				F4C11BE318D06DC700E18F54 /* UITableViewCell+RSSConfiguration.h */,
-				F4C11BE418D06DC700E18F54 /* UITableViewCell+RSSConfiguration.m */,
 			);
 			name = Categories;
 			path = categories;
@@ -381,7 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F404A05718CE534D00B78A97 /* main.m in Sources */,
-				F48545B718CFBABB002E793E /* RSSFetchedResultsController.m in Sources */,
+				F48545B718CFBABB002E793E /* RSSFetchedDataSource.m in Sources */,
 				F48545BD18CFC9E8002E793E /* RSSItemViewController.m in Sources */,
 				F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */,
 				F404A0AA18CE640E00B78A97 /* RSSFeedChannelXML.m in Sources */,
@@ -392,7 +403,7 @@
 				F404A0A718CE63D800B78A97 /* RSSFeedXMLParser.m in Sources */,
 				F404A08118CE542300B78A97 /* RssReader.xcdatamodeld in Sources */,
 				F404A09C18CE597400B78A97 /* RSSAddFeedViewController.m in Sources */,
-				F4C11BE518D06DC700E18F54 /* UITableViewCell+RSSConfiguration.m in Sources */,
+				F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */,
 				F404A05B18CE534D00B78A97 /* RSSAppDelegate.m in Sources */,
 				F4C11BEB18D06FA300E18F54 /* RSSItemEntity.m in Sources */,
 				F404A09918CE57F900B78A97 /* RSSFeedsViewController.m in Sources */,

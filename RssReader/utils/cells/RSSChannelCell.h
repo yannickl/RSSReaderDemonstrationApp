@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+RSSConfiguration.h
+//  RSSChannelCell.h
 //  RssReader
 //
 //  Created by YannickL on 12/03/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITableViewCell (RSSConfiguration)
+@interface RSSChannelCell : UITableViewCell
 
 @end

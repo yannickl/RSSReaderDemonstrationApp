@@ -7,7 +7,7 @@
 //
 
 #import "RSSChannelViewController.h"
-#import "RSSFetchedResultsController.h"
+#import "RSSFetchedDataSource.h"
 #import "RSSItemViewController.h"
 
 #import "RSSChannelEntity.h"
@@ -20,14 +20,16 @@ static NSString * const kRSSFeedDisplayItemVCSegueName = @"RSSFeedDisplayItemSeg
 static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 @interface RSSChannelViewController ()
-@property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSFetchRequest              *fetchRequest;
-@property (strong, nonatomic) RSSChannelEntity            *currentChannel;
-@property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
+@property (strong, nonatomic) RSSFetchedDataSource       *fetchedDataSource;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchRequest             *fetchRequest;
+@property (strong, nonatomic) RSSChannelEntity           *currentChannel;
 
 @end
 
 @implementation RSSChannelViewController
+
+#pragma mark - View Life Cycle
 
 - (void)viewDidLoad
 {
@@ -37,16 +39,26 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
     self.title      = _currentChannel.title;
 
     // Setup the fetched result controller
-    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithRequest:self.fetchRequest inManagedObjectContext:self.mainObjectContext withTableView:self.tableView cacheName:kRSSFeedCellName];
-    
-    __weak typeof(self) weakSelf = self;
-    self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
-        RSSItemEntity *item       = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
-        cell.textLabel.text       = [item title];
-        cell.detailTextLabel.text = ([item.markAsRead boolValue]) ? NSLocalizedString(@"Read", @"Message displayed when the item is already read") : NSLocalizedString(@"Unread", @"Message displayed when the item is not read yet");
-    };
-    _fetchedResultsController.configureCell = _configureCell;
+    _fetchedResultsController   = [RSSItemEntity rss_fetchedResultsControllerWithRequest:self.fetchRequest inContext:_mainObjectContext];
+    _fetchedDataSource          = [[RSSFetchedDataSource alloc] initWithFetchedResultViewController:self.fetchedResultsController tableView:self.tableView reuseIdentifier:kRSSFeedCellName];
+    _fetchedDataSource.delegate = self;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    _fetchedDataSource.paused = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    _fetchedDataSource.paused = YES;
+}
+
+#pragma mark - Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -92,26 +104,15 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 - (IBAction)refreshAction:(id)sender
 {
+    
 }
 
-#pragma mark - Table View
+#pragma mark - RSSFetchedResultsDataSource Delegate Methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)fetchedDataSource:(RSSFetchedDataSource *)fetchedDataSource needsConfigureCell:(UITableViewCell *)cell withObject:(RSSItemEntity *)item
 {
-    return [[self.fetchedResultsController sections] count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRSSFeedCellName forIndexPath:indexPath];
-    _configureCell(cell, indexPath);
-    return cell;
+    cell.textLabel.text       = [item title];
+    cell.detailTextLabel.text = ([item.markAsRead boolValue]) ? NSLocalizedString(@"Read", @"Message displayed when the item is already read") : NSLocalizedString(@"Unread", @"Message displayed when the item is not read yet");
 }
 
 @end
