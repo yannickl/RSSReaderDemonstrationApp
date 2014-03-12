@@ -43,6 +43,7 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
     self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
         RSSItemEntity *item       = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
         cell.textLabel.text       = [item title];
+        cell.detailTextLabel.text = ([item.markAsRead boolValue]) ? NSLocalizedString(@"Read", @"Message displayed when the item is already read") : NSLocalizedString(@"Unread", @"Message displayed when the item is not read yet");
     };
     _fetchedResultsController.configureCell = _configureCell;
 }

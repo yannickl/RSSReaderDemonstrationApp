@@ -8,6 +8,7 @@
 
 #import "RSSItemViewController.h"
 
+#import "RSSChannelEntity.h"
 #import "RSSItemEntity.h"
 #import "NSManagedObject+RssReader.h"
 
@@ -24,6 +25,22 @@
     
     _currentItem = [RSSItemEntity rss_findByID:_itemID inContext:_mainObjectContext];
     self.title   = _currentItem.title;
+    
+    if (![_currentItem.markAsRead boolValue]) {
+        [_mainObjectContext performBlock:^{
+            _currentItem.markAsRead          = @(YES);
+            _currentItem.channel.unreadItems = @([_currentItem.channel.unreadItems integerValue] - 1);
+            
+            NSError *error;
+            if (![_mainObjectContext save:&error]) {
+                NSLog(@"error: %@", error);
+            }
+        }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_currentItem.link]]];
 }
