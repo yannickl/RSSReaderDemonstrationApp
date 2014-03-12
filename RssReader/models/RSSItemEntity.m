@@ -12,6 +12,7 @@
 
 @implementation RSSItemEntity
 
+@dynamic guid;
 @dynamic link;
 @dynamic markAsRead;
 @dynamic pubDate;

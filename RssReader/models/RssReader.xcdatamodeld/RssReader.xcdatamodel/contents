@@ -10,6 +10,7 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RSSItemEntity" inverseName="channel" inverseEntity="RSSItemEntity" syncable="YES"/>
     </entity>
     <entity name="RSSItemEntity" representedClassName="RSSItemEntity" syncable="YES">
+        <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="link" attributeType="String" syncable="YES"/>
         <attribute name="markAsRead" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pubDate" attributeType="Date" indexed="YES" syncable="YES"/>
@@ -19,6 +20,6 @@
     </entity>
     <elements>
         <element name="RSSChannelEntity" positionX="0" positionY="0" width="128" height="150"/>
-        <element name="RSSItemEntity" positionX="0" positionY="0" width="128" height="133"/>
+        <element name="RSSItemEntity" positionX="0" positionY="0" width="128" height="150"/>
     </elements>
 </model>

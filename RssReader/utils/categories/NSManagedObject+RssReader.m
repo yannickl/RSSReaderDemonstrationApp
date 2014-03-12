@@ -97,14 +97,23 @@
     return [results firstObject];
 }
 
-#pragma mark - Private Methods
+#pragma mark - Requests
 
-+ (NSFetchRequest *)rss_requestAllByAttribute:(NSString *)property withValue:(id)value inContext:(NSManagedObjectContext *)context
++ (NSFetchRequest *)rss_fetchRequestInContext:(NSManagedObjectContext *)context
 {
     NSEntityDescription *entity = [self rss_entityInManagedObjectContext:context];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:entity];
+    
+    return request;
+}
+
+#pragma mark - Private Methods
+
++ (NSFetchRequest *)rss_requestAllByAttribute:(NSString *)property withValue:(id)value inContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [self rss_fetchRequestInContext:context];
     [request setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", property, value]];
     
     return request;

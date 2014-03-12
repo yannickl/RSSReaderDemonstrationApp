@@ -7,10 +7,14 @@
 //
 
 #import "RSSChannelViewController.h"
-#import "RSSFetchedDataSource.h"
 #import "RSSItemViewController.h"
 
+#import "RSSFetchedDataSource.h"
+
+#import "RSSRequestFeedOperation.h"
+
 #import "RSSChannelEntity.h"
+#import "RSSChannelEntity+XML.h"
 #import "RSSItemEntity.h"
 #import "NSManagedObject+RssReader.h"
 
@@ -20,10 +24,12 @@ static NSString * const kRSSFeedDisplayItemVCSegueName = @"RSSFeedDisplayItemSeg
 static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 @interface RSSChannelViewController ()
+@property (strong, nonatomic) NSOperationQueue  *backgroundQueue;
+@property (strong, nonatomic) RSSChannelEntity  *currentChannel;
+
 @property (strong, nonatomic) RSSFetchedDataSource       *fetchedDataSource;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchRequest             *fetchRequest;
-@property (strong, nonatomic) RSSChannelEntity           *currentChannel;
 
 @end
 
@@ -35,6 +41,7 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 {
     [super viewDidLoad];
     
+    // Retrieve the current channel
     _currentChannel = [RSSChannelEntity rss_findByID:_channelID inContext:_mainObjectContext];
     self.title      = _currentChannel.title;
 
@@ -42,6 +49,10 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
     _fetchedResultsController   = [RSSItemEntity rss_fetchedResultsControllerWithRequest:self.fetchRequest inContext:_mainObjectContext];
     _fetchedDataSource          = [[RSSFetchedDataSource alloc] initWithFetchedResultViewController:self.fetchedResultsController tableView:self.tableView reuseIdentifier:kRSSFeedCellName];
     _fetchedDataSource.delegate = self;
+    
+    // Create the background queue to update the feed
+    _backgroundQueue                             = [[NSOperationQueue alloc] init];
+    _backgroundQueue.maxConcurrentOperationCount = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,7 +115,22 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 - (IBAction)refreshAction:(id)sender
 {
+    _refrechButtonItem.enabled = NO;
     
+    RSSRequestFeedOperation *requestFeedOperation = [[RSSRequestFeedOperation alloc] initWithFeedURL:[_currentChannel xml_sourceURL]];
+    
+    __weak typeof(self) weakSelf = self;
+    [requestFeedOperation setFeedCompletionBlock:^ (NSError *error, RSSFeedChannelXML *channelXML) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        weakSelf.refrechButtonItem.enabled = YES;
+        
+        if (channelXML) {
+            [RSSChannelEntity xml_insertOrUpdateChannelFromXML:channelXML inContext:weakSelf.mainObjectContext completionBlock:NULL];
+        }
+    }];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [_backgroundQueue addOperation:requestFeedOperation];
 }
 
 #pragma mark - RSSFetchedResultsDataSource Delegate Methods

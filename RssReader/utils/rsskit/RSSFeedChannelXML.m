@@ -18,4 +18,17 @@
     return self;
 }
 
+#pragma mark - Utils
+
+- (NSArray *)itemIDs
+{
+    NSMutableArray *itemIDs = [NSMutableArray array];
+    
+    for (RSSFeedItemXML *item in _items) {
+        [itemIDs addObject:item.guid];
+    }
+    
+    return itemIDs;
+}
+
 @end

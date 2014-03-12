@@ -11,7 +11,7 @@
 #import "RSSFeedChannelXML.h"
 
 #import "RSSChannelEntity.h"
-#import "RSSItemEntity.h"
+#import "RSSChannelEntity+XML.h"
 #import "NSManagedObject+RssReader.h"
 
 @interface RSSAddFeedViewController ()
@@ -63,45 +63,9 @@
 - (IBAction)addFeedAction:(id)sender
 {
     if (_currentChannel) {
-        // Create a context to manage entities in the background
-        NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        backgroundContext.parentContext           = _mainObjectContext;
-        
         __weak typeof(self) weakSelf = self;
-        [backgroundContext performBlock:^{
-            RSSChannelEntity *channelEntity = [RSSChannelEntity rss_insertNewObjectIntoContext:backgroundContext];
-            channelEntity.src               = [_currentChannel.sourceURL description];
-            channelEntity.title             = _currentChannel.title;
-            channelEntity.summary           = _currentChannel.summary;
-            channelEntity.unreadItems       = @(_currentChannel.items.count);
-            
-            for (RSSFeedItemXML *itemXML in _currentChannel.items) {
-                RSSItemEntity *itemEntity = [RSSItemEntity rss_insertNewObjectIntoContext:backgroundContext];
-                itemEntity.title          = itemXML.title;
-                itemEntity.summary        = itemXML.summary;
-                itemEntity.link           = itemXML.link;
-                itemEntity.pubDate        = itemXML.pubDate ?: [NSDate date];
-                itemEntity.markAsRead     = @(NO);
-
-                [channelEntity addItemsObject:itemEntity];
-            }
-
-            // Push to parent
-            NSError *childError;
-            if (![backgroundContext save:&childError]) {
-                // handle error
-                NSLog(@"childError: %@", childError);
-            }
-
-            [_mainObjectContext performBlock:^ {
-                NSError *parentError;
-                if (![_mainObjectContext save:&parentError]) {
-                    // handle error
-                    NSLog(@"error: %@", parentError);
-                }
-                
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }];
+        [RSSChannelEntity xml_insertOrUpdateChannelFromXML:_currentChannel inContext:_mainObjectContext completionBlock:^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
 }

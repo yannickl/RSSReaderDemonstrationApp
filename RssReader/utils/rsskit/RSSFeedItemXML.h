@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface RSSFeedItemXML : NSObject
+@property (nonatomic, strong) NSString *guid;
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *link;

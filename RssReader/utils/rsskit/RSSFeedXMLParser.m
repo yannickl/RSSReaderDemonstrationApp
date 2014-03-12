@@ -72,7 +72,7 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
 {
     
     NSString *trimmingString = [_currentElementString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
+
     // Special case with the description field
     if ([elementName isEqualToString:@"description"]) {
         [_currentElement setValue:trimmingString forKey:@"summary"];

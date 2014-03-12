@@ -13,6 +13,7 @@
 
 @interface RSSItemEntity : NSManagedObject
 
+@property (nonatomic, retain) NSString * guid;
 @property (nonatomic, retain) NSString * link;
 @property (nonatomic, retain) NSNumber * markAsRead;
 @property (nonatomic, retain) NSDate * pubDate;

@@ -10,4 +10,10 @@
 
 @implementation RSSFeedItemXML
 
+- (NSString *)guid
+{
+    // Returns the link as guid if it does not exists
+    return _guid ?: _link;
+}
+
 @end

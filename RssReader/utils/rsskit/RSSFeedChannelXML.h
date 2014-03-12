@@ -17,4 +17,11 @@
 @property (nonatomic, strong) NSData         *thumbnail;
 @property (nonatomic, strong) NSMutableArray *items;
 
+#pragma mark - Utils
+
+/**
+ * @abstract Returns an array which contains all the guid of the items.
+ */
+- (NSArray *)itemIDs;
+
 @end

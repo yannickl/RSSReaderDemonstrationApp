@@ -30,6 +30,7 @@
 		F404A0AA18CE640E00B78A97 /* RSSFeedChannelXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0A918CE640E00B78A97 /* RSSFeedChannelXML.m */; };
 		F404A0AD18CE641B00B78A97 /* RSSFeedItemXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0AC18CE641B00B78A97 /* RSSFeedItemXML.m */; };
 		F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */; };
+		F44E1DD218D0E83F00E34061 /* RSSChannelEntity+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */; };
 		F48545B418CFA80A002E793E /* NSManagedObject+RssReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */; };
 		F48545B718CFBABB002E793E /* RSSFetchedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */; };
 		F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B918CFC5C3002E793E /* RSSChannelViewController.m */; };
@@ -83,6 +84,8 @@
 		F44E1DC918D0AE8A00E34061 /* RSSChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSChannelCell.h; sourceTree = "<group>"; };
 		F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSChannelCell.m; sourceTree = "<group>"; };
 		F44E1DCC18D0E6BF00E34061 /* RSSFetchedDataSourceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSourceProtocol.h; sourceTree = "<group>"; };
+		F44E1DD018D0E83F00E34061 /* RSSChannelEntity+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSSChannelEntity+XML.h"; sourceTree = "<group>"; };
+		F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RSSChannelEntity+XML.m"; sourceTree = "<group>"; };
 		F48545B218CFA80A002E793E /* NSManagedObject+RssReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+RssReader.h"; sourceTree = "<group>"; };
 		F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+RssReader.m"; sourceTree = "<group>"; };
 		F48545B518CFBABB002E793E /* RSSFetchedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSource.h; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				F4C11BE718D06FA300E18F54 /* RSSChannelEntity.m */,
 				F4C11BE918D06FA300E18F54 /* RSSItemEntity.h */,
 				F4C11BEA18D06FA300E18F54 /* RSSItemEntity.m */,
+				F44E1DD018D0E83F00E34061 /* RSSChannelEntity+XML.h */,
+				F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */,
 			);
 			name = Models;
 			path = models;
@@ -405,6 +410,7 @@
 				F404A09C18CE597400B78A97 /* RSSAddFeedViewController.m in Sources */,
 				F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */,
 				F404A05B18CE534D00B78A97 /* RSSAppDelegate.m in Sources */,
+				F44E1DD218D0E83F00E34061 /* RSSChannelEntity+XML.m in Sources */,
 				F4C11BEB18D06FA300E18F54 /* RSSItemEntity.m in Sources */,
 				F404A09918CE57F900B78A97 /* RSSFeedsViewController.m in Sources */,
 			);

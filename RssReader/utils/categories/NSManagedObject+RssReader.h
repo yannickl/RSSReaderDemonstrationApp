@@ -61,4 +61,11 @@
  */
 + (instancetype)rss_executeFetchRequestAndReturnFirstObject:(NSFetchRequest *)request inContext:(NSManagedObjectContext *)context;
 
+#pragma mark - Requests
+
+/**
+ * @abstract Returns a ftech request for the current entity from a given context.
+ */
++ (NSFetchRequest *)rss_fetchRequestInContext:(NSManagedObjectContext *)context;
+
 @end
