@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSOperationQueue  *backgroundQueue;
 @property (nonatomic, strong) RSSFeedChannelXML *currentChannel;
 
+/** Test the given feed from a given url. */
 - (void)testFeedAtURL:(NSURL *)feedURL;
 
 @end
@@ -28,7 +29,8 @@
 
 #pragma mark - UIViewController Life Cycle
 
-- (void)dealloc {
+- (void)dealloc
+{
     [self removeObserver:self forKeyPath:@"currentChannel"];
 }
 
@@ -50,11 +52,13 @@
 
 #pragma mark - IBAction Methods
 
-- (IBAction)testFeedURLAction:(id)sender {
+- (IBAction)testFeedURLAction:(id)sender
+{
     [self testFeedAtURL:[NSURL URLWithString:_urlTextField.text]];
 }
 
-- (IBAction)addFeedAction:(id)sender {
+- (IBAction)addFeedAction:(id)sender
+{
     if (_currentChannel) {
         // Create a context to manage entities in the background
         NSManagedObjectContext *backgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -102,7 +106,8 @@
 
 #pragma mark - Private methods
 
-- (void)testFeedAtURL:(NSURL *)feedURL {
+- (void)testFeedAtURL:(NSURL *)feedURL
+{
     [_urlTextField resignFirstResponder];
     _testURLButton.enabled = NO;
     self.currentChannel    = nil;
@@ -137,7 +142,8 @@
 
 #pragma mark - UITextField Delegate Methods
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     [self testFeedAtURL:[NSURL URLWithString:_urlTextField.text]];
     
     return NO;
@@ -145,7 +151,8 @@
 
 #pragma mark - KVO Delegate Methods
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if (object == self && [keyPath isEqualToString:@"currentChannel"]) {
         if (_currentChannel) {
             _currentFeedTitleLabel.text   = _currentChannel.title;

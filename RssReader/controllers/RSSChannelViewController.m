@@ -56,7 +56,8 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 #pragma mark - Properties
 
-- (NSFetchRequest *)fetchRequest {
+- (NSFetchRequest *)fetchRequest
+{
     if (_fetchRequest) {
         return _fetchRequest;
     }

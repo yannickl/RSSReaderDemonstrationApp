@@ -21,7 +21,8 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
 
 @implementation RSSFeedXMLParser
 
-- (id)initWithData:(NSData *)data {
+- (id)initWithData:(NSData *)data
+{
     if ((self = [super init])) {
         _parser          = [[NSXMLParser alloc] initWithData:data];
         _parser.delegate = self;
@@ -31,13 +32,15 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
 
 #pragma mark - Public Methods
 
-- (BOOL)parse {
+- (BOOL)parse
+{
     return [_parser parse];
 }
 
 #pragma mark - NSXMLParserDelegate  Methods
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
     
     if ([elementName isEqualToString:kRSSFeedXMLChannelElementName]) {
         RSSFeedChannelXML *channel = [[RSSFeedChannelXML alloc] init];
@@ -56,7 +59,8 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
     }
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
     if (_currentElementString == nil) {
         self.currentElementString = [[NSMutableString alloc] init];
     }
@@ -64,7 +68,8 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
     [_currentElementString appendString:string];
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
     
     NSString *trimmingString = [_currentElementString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     

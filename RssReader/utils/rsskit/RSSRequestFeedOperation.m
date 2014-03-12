@@ -12,26 +12,30 @@
 
 @interface RSSRequestFeedOperation ()
 
+/** Invoke the completion block in the main thread with the given informations. */
 - (void)invokeCompletionBlockWithChannelXML:(RSSFeedChannelXML *)channelXML error:(NSError *)error;
 
 @end
 
 @implementation RSSRequestFeedOperation
 
-- (id)initWithFeedURL:(NSURL *)feedURL {
+- (id)initWithFeedURL:(NSURL *)feedURL
+{
     if ((self = [super init])) {
         _feedURL = feedURL;
     }
     return self;
 }
 
-+ (instancetype)requestFeedOperationWithURL:(NSURL *)feedURL {
++ (instancetype)requestFeedOperationWithURL:(NSURL *)feedURL
+{
     return [[self alloc] initWithFeedURL:feedURL];
 }
 
 #pragma mark - NSOperation Life Cycle
 
-- (void)main {
+- (void)main
+{
     @autoreleasepool {
         if (self.isCancelled) {
             return;
@@ -77,7 +81,8 @@
 
 #pragma mark - Private Methods
 
-- (void)invokeCompletionBlockWithChannelXML:(RSSFeedChannelXML *)channelXML error:(NSError *)error {
+- (void)invokeCompletionBlockWithChannelXML:(RSSFeedChannelXML *)channelXML error:(NSError *)error
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_feedCompletionBlock) {
             _feedCompletionBlock(error, channelXML);
