@@ -12,4 +12,6 @@
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;
 @property (nonatomic, strong) NSManagedObjectID      *itemID;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @end

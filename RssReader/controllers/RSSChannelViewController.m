@@ -22,6 +22,7 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 @interface RSSChannelViewController ()
 @property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchRequest              *fetchRequest;
+@property (strong, nonatomic) RSSChannelEntity            *currentChannel;
 @property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
 
 @end
@@ -32,8 +33,8 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 {
     [super viewDidLoad];
     
-    RSSChannelEntity *currentChannel = [RSSChannelEntity rss_findByID:_channelID inContext:_mainObjectContext];
-    self.title                       = currentChannel.title;
+    _currentChannel = [RSSChannelEntity rss_findByID:_channelID inContext:_mainObjectContext];
+    self.title      = _currentChannel.title;
 
     // Setup the fetched result controller
     _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithRequest:self.fetchRequest inManagedObjectContext:self.mainObjectContext withTableView:self.tableView cacheName:kRSSFeedCellName];
@@ -49,8 +50,12 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:kRSSFeedDisplayItemVCSegueName]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSManagedObject *item  = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        
         RSSItemViewController *vc = [segue destinationViewController];
         vc.mainObjectContext      = _mainObjectContext;
+        vc.itemID                 = item.objectID;
     }
 }
 

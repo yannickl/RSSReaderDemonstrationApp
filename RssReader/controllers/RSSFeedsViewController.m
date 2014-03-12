@@ -55,12 +55,12 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
         vc.mainObjectContext         = _mainObjectContext;
     }
     else if ([[segue identifier] isEqualToString:kRSSFeedDisplayEntriesVCSegueName]) {
-        NSIndexPath *indexPath  = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSIndexPath *indexPath   = [self.tableView indexPathForSelectedRow];
+        NSManagedObject *channel = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         
         RSSChannelViewController *vc = [segue destinationViewController];
         vc.mainObjectContext         = _mainObjectContext;
-        vc.channelID                 = object.objectID;
+        vc.channelID                 = channel.objectID;
     }
 }
 

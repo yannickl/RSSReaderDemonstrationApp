@@ -22,10 +22,15 @@
 
 #pragma mark - Find by ID
 
-+ (instancetype)rss_findByID:(NSManagedObjectID *)objectID inContext:(NSManagedObjectContext *)context {
-    NSError *error;
++ (instancetype)rss_findByID:(NSManagedObjectID *)objectID inContext:(NSManagedObjectContext *)context
+{
+    if (!objectID) {
+        return nil;
+    }
     
+    NSError *error;
     id managedObject = [context existingObjectWithID:objectID error:&error];
+    
     if (error) {
         NSLog(@"error: %@", error);
         return nil;
@@ -60,6 +65,7 @@
         NSError *error = nil;
         
         results = [context executeFetchRequest:request error:&error];
+        
         if (results == nil) {
             NSLog(@"error: %@", error);
         }
@@ -73,9 +79,11 @@
     [request setFetchLimit:1];
     
     NSArray *results = [self rss_executeFetchRequest:request inContext:context];
+    
     if ([results count] == 0) {
         return nil;
     }
+    
     return [results firstObject];
 }
 
