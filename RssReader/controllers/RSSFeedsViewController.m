@@ -23,6 +23,7 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
 
 @interface RSSFeedsViewController ()
 @property (strong, nonatomic) RSSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchRequest              *fetchRequest;
 @property (strong, nonatomic) RSSConfigureCellBlock       configureCell;
 
 @end
@@ -35,13 +36,14 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
 
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithEntityName:[RSSChannelEntity rss_name] inManagedObjectContext:_mainObjectContext withTableView:self.tableView andPredicate:nil];
+    // Setup the fetched result controller
+    _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithRequest:self.fetchRequest inManagedObjectContext:self.mainObjectContext withTableView:self.tableView cacheName:kRSSFeedCellName];
     
     __weak typeof(self) weakSelf = self;
     self.configureCell           = ^ (UITableViewCell *cell, NSIndexPath *indexPath) {
         RSSChannelEntity *channel = [weakSelf.fetchedResultsController objectAtIndexPath:indexPath];
         cell.textLabel.text       = [channel title];
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu entries", @"Displayed the number of entries"), (unsigned long)[channel.items count]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@/%lu unread entries", @"Displayed the number of entries unread"), channel.unreadItems, (unsigned long)[channel.items count]];
     };
     _fetchedResultsController.configureCell = _configureCell;
 }
@@ -60,6 +62,29 @@ static NSString * const kRSSFeedCellName = @"RSSChannelCell";
         vc.mainObjectContext         = _mainObjectContext;
         vc.channelID                 = object.objectID;
     }
+}
+
+#pragma mark - Properties
+
+- (NSFetchRequest *)fetchRequest {
+    if (_fetchRequest) {
+        return _fetchRequest;
+    }
+    
+    _fetchRequest               = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:[RSSChannelEntity rss_name] inManagedObjectContext:_mainObjectContext];
+    [_fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [_fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:NO];
+    NSArray *sortDescriptors         = @[sortDescriptor];
+    
+    [_fetchRequest setSortDescriptors:sortDescriptors];
+    
+    return _fetchRequest;
 }
 
 #pragma mark - Table View

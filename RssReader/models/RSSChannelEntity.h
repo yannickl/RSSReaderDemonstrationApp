@@ -2,7 +2,7 @@
 //  RSSChannelEntity.h
 //  RssReader
 //
-//  Created by YannickL on 10/03/14.
+//  Created by YannickL on 12/03/14.
 //  Copyright (c) 2014 Yannick Loriot. All rights reserved.
 //
 
@@ -16,8 +16,9 @@
 @property (nonatomic, retain) NSString * link;
 @property (nonatomic, retain) NSString * src;
 @property (nonatomic, retain) NSString * summary;
-@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSData * thumbnail;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSNumber * unreadItems;
 @property (nonatomic, retain) NSSet *items;
 @end
 

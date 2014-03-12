@@ -9,41 +9,21 @@
 #import "RSSFetchedResultsController.h"
 
 @interface RSSFetchedResultsController ()
-@property (nonatomic, strong) NSString               *entityName;
-@property (nonatomic, strong) NSManagedObjectContext *objectContext;
-@property (nonatomic, strong) UITableView            *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
 @implementation RSSFetchedResultsController
-@synthesize entityName    = _entityName;
-@synthesize objectContext = _objectContext;
 @synthesize tableView     = _tableView;
 
-+ (instancetype)rssFetchedResultControllerWithEntityName:(NSString *)entityName inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView andPredicate:(NSPredicate *)predicate
++ (instancetype)rssFetchedResultControllerWithRequest:(NSFetchRequest *)fetchRequest inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext withTableView:(UITableView *)tableView cacheName:(NSString *)cacheName
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity  = [NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSParameterAssert(fetchRequest);
+    NSParameterAssert(managedObjectContext);
+    NSParameterAssert(tableView);
     
-    // Set the predicate
-    if (predicate) {
-        [fetchRequest setPredicate:predicate];
-    }
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:NO];
-    NSArray *sortDescriptors         = @[sortDescriptor];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    RSSFetchedResultsController *fetchedResultsController = [[RSSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:entityName];
+    RSSFetchedResultsController *fetchedResultsController = [[RSSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:cacheName];
     fetchedResultsController.delegate                     = fetchedResultsController;
-    fetchedResultsController.entityName                   = entityName;
-    fetchedResultsController.objectContext                = managedObjectContext;
     fetchedResultsController.tableView                    = tableView;
     
     NSError *error = nil;

@@ -68,14 +68,24 @@ static NSString * const kRSSFeedXMLItemElementName    = @"item";
     
     NSString *trimmingString = [_currentElementString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    // Special case with the description and the images
+    // Special case with the description field
     if ([elementName isEqualToString:@"description"]) {
         [_currentElement setValue:trimmingString forKey:@"summary"];
     }
+    // Special case with the thumbnail
     else if ([elementName isEqualToString:@"url"] && [_currentElement isKindOfClass:[RSSFeedChannelXML class]]) {
         NSData *originalImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:trimmingString]];
         NSData *pngImageData      = UIImagePNGRepresentation([[UIImage alloc] initWithData:originalImageData]);
         [_currentElement setValue:pngImageData forKey:@"thumbnail"];
+    }
+    // Special case with the date
+    else if ([elementName isEqualToString:@"pubDate"] && [_currentElement isKindOfClass:[RSSFeedItemXML class]]) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.locale           = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+        dateFormatter.dateFormat       = @"E, dd MMM y HH:mm:ss zz";
+        NSDate *date                   = [dateFormatter dateFromString:trimmingString];
+        
+        [_currentElement setValue:date forKey:@"pubDate"];
     }
     else {
         SEL selectorName = NSSelectorFromString(elementName);

@@ -5,19 +5,20 @@
         <attribute name="src" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="unreadItems" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RSSItemEntity" inverseName="channel" inverseEntity="RSSItemEntity" syncable="YES"/>
     </entity>
     <entity name="RSSItemEntity" representedClassName="RSSItemEntity" syncable="YES">
-        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="link" attributeType="String" syncable="YES"/>
         <attribute name="markAsRead" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="pubDate" attributeType="Date" syncable="YES"/>
+        <attribute name="pubDate" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="channel" maxCount="1" deletionRule="Nullify" destinationEntity="RSSChannelEntity" inverseName="items" inverseEntity="RSSChannelEntity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RSSChannelEntity" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="RSSChannelEntity" positionX="0" positionY="0" width="128" height="150"/>
         <element name="RSSItemEntity" positionX="0" positionY="0" width="128" height="133"/>
     </elements>
 </model>

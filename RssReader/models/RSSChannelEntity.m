@@ -2,7 +2,7 @@
 //  RSSChannelEntity.m
 //  RssReader
 //
-//  Created by YannickL on 10/03/14.
+//  Created by YannickL on 12/03/14.
 //  Copyright (c) 2014 Yannick Loriot. All rights reserved.
 //
 
@@ -15,8 +15,9 @@
 @dynamic link;
 @dynamic src;
 @dynamic summary;
-@dynamic title;
 @dynamic thumbnail;
+@dynamic title;
+@dynamic unreadItems;
 @dynamic items;
 
 @end

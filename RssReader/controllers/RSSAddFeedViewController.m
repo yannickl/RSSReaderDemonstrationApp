@@ -66,13 +66,14 @@
             channelEntity.src               = [_currentChannel.sourceURL description];
             channelEntity.title             = _currentChannel.title;
             channelEntity.summary           = _currentChannel.summary;
+            channelEntity.unreadItems       = @(_currentChannel.items.count);
             
-            for (RSSFeedChannelXML *itemXML in _currentChannel.items) {
+            for (RSSFeedItemXML *itemXML in _currentChannel.items) {
                 RSSItemEntity *itemEntity = [RSSItemEntity rss_insertNewObjectIntoContext:backgroundContext];
                 itemEntity.title          = itemXML.title;
                 itemEntity.summary        = itemXML.summary;
                 itemEntity.link           = itemXML.link;
-                itemEntity.pubDate        = [NSDate date];
+                itemEntity.pubDate        = itemXML.pubDate ?: [NSDate date];
                 itemEntity.markAsRead     = @(NO);
 
                 [channelEntity addItemsObject:itemEntity];
