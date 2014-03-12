@@ -20,6 +20,20 @@
     return [NSEntityDescription insertNewObjectForEntityForName:[self rss_name] inManagedObjectContext:context];
 }
 
+#pragma mark - Find by ID
+
++ (instancetype)rss_findByID:(NSManagedObjectID *)objectID inContext:(NSManagedObjectContext *)context {
+    NSError *error;
+    
+    id managedObject = [context existingObjectWithID:objectID error:&error];
+    if (error) {
+        NSLog(@"error: %@", error);
+        return nil;
+    }
+    
+    return managedObject;
+}
+
 #pragma mark - Find by Attribute/Value pair
 
 + (instancetype)rss_findFirstByAttribute:(NSString *)attribute withValue:(id)searchValue inContext:(NSManagedObjectContext *)context
@@ -67,12 +81,16 @@
 
 #pragma mark - Private Methods
 
++ (NSEntityDescription *)rss_entityInManagedObjectContext:(NSManagedObjectContext *)context {
+    return [NSEntityDescription entityForName:[self rss_name] inManagedObjectContext:context];
+}
+
 + (NSFetchRequest *)rss_requestAllByAttribute:(NSString *)property withValue:(id)value inContext:(NSManagedObjectContext *)context
 {
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:[self rss_name] inManagedObjectContext:context];
+    NSEntityDescription *entity = [self rss_entityInManagedObjectContext:context];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
+    [request setEntity:entity];
     [request setPredicate:[NSPredicate predicateWithFormat:@"%K = %@", property, value]];
     
     return request;

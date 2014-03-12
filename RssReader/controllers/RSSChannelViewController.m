@@ -32,8 +32,8 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 {
     [super viewDidLoad];
     
-    /*RSSChannelEntity *currentChannel = [RSSChannelEntity rss_findFirstByAttribute:@"objectID" withValue:_channelID inContext:_mainObjectContext];
-    self.title                       = currentChannel.title;*/
+    RSSChannelEntity *currentChannel = [RSSChannelEntity rss_findByID:_channelID inContext:_mainObjectContext];
+    self.title                       = currentChannel.title;
 
     // Setup the fetched result controller
     _fetchedResultsController = [RSSFetchedResultsController rssFetchedResultControllerWithRequest:self.fetchRequest inManagedObjectContext:self.mainObjectContext withTableView:self.tableView cacheName:kRSSFeedCellName];

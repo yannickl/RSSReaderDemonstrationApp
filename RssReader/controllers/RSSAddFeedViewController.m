@@ -21,6 +21,9 @@
 /** Test the given feed from a given url. */
 - (void)testFeedAtURL:(NSURL *)feedURL;
 
+/** Returns true whether the feed is already present in the feed list. */
+- (BOOL)isFeedWithURLAlreadyPresent:(NSURL *)feedURL;
+
 @end
 
 @implementation RSSAddFeedViewController
@@ -84,18 +87,17 @@
             }
 
             // Push to parent
-            NSError *error;
-            if (![backgroundContext save:&error]) {
+            NSError *childError;
+            if (![backgroundContext save:&childError]) {
                 // handle error
-                NSLog(@"error: %@", error);
+                NSLog(@"childError: %@", childError);
             }
-            
-            // save parent to disk asynchronously
+
             [_mainObjectContext performBlock:^ {
-                NSError *error;
-                if (![_mainObjectContext save:&error]) {
+                NSError *parentError;
+                if (![_mainObjectContext save:&parentError]) {
                     // handle error
-                    NSLog(@"error: %@", error);
+                    NSLog(@"error: %@", parentError);
                 }
                 
                 [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -108,36 +110,41 @@
 
 - (void)testFeedAtURL:(NSURL *)feedURL
 {
+    [_backgroundQueue cancelAllOperations];
     [_urlTextField resignFirstResponder];
-    _testURLButton.enabled = NO;
     self.currentChannel    = nil;
     
-    RSSRequestFeedOperation *requestFeedOperation = [[RSSRequestFeedOperation alloc] initWithFeedURL:feedURL];
-    
-    __weak typeof(self) weakSelf = self;
-    [requestFeedOperation setFeedCompletionBlock:^ (NSError *error, RSSFeedChannelXML *channel) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    if ([self isFeedWithURLAlreadyPresent:feedURL]) {
+        _statusLabel.text = NSLocalizedString(@"The channel is already present in the feed", @"Status displayed when the channel is already present in the feed");
+    }
+    else {
+        _testURLButton.enabled = NO;
         
-        weakSelf.testURLButton.enabled = YES;
-
-        if (error) {
-            weakSelf.statusLabel.text = [error localizedDescription];
-        }
-        else {
-            RSSChannelEntity *foundChannel = [RSSChannelEntity rss_findFirstByAttribute:@"src" withValue:channel.sourceURL inContext:weakSelf.mainObjectContext];
+        RSSRequestFeedOperation *requestFeedOperation = [[RSSRequestFeedOperation alloc] initWithFeedURL:feedURL];
+        
+        __weak typeof(self) weakSelf = self;
+        [requestFeedOperation setFeedCompletionBlock:^ (NSError *error, RSSFeedChannelXML *channel) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
-            if (foundChannel) {
-                weakSelf.statusLabel.text = NSLocalizedString(@"The channel is already present in the feed", @"Status displayed when the channel is already present in the feed");
+            weakSelf.testURLButton.enabled = YES;
+            
+            if (error) {
+                weakSelf.statusLabel.text = [error localizedDescription];
             }
             else {
                 weakSelf.statusLabel.text = NSLocalizedString(@"success", @"Status displayed when the channel can be added");
                 weakSelf.currentChannel   = channel;
             }
-        }
-    }];
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [_backgroundQueue addOperation:requestFeedOperation];
+        }];
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [_backgroundQueue addOperation:requestFeedOperation];
+    }
+}
+
+- (BOOL)isFeedWithURLAlreadyPresent:(NSURL *)feedURL {
+    RSSChannelEntity *foundChannel = [RSSChannelEntity rss_findFirstByAttribute:@"src" withValue:feedURL inContext:_mainObjectContext];
+    return (foundChannel != nil);
 }
 
 #pragma mark - UITextField Delegate Methods

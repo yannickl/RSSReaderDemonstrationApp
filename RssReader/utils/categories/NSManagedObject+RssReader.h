@@ -20,6 +20,13 @@
  */
 + (instancetype)rss_insertNewObjectIntoContext:(NSManagedObjectContext *)context;
 
+#pragma mark - Find by ID
+
+/**
+ * @abstract Returns the entities corresponding to a given object ID.
+ */
++ (instancetype)rss_findByID:(NSManagedObjectID *)objectID inContext:(NSManagedObjectContext *)context;
+
 #pragma mark - Find by Attribute/Value pair
 
 /**
