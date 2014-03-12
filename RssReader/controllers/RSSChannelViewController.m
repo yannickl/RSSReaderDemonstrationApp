@@ -137,8 +137,10 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
 
 - (void)fetchedDataSource:(RSSFetchedDataSource *)fetchedDataSource needsConfigureCell:(UITableViewCell *)cell withObject:(RSSItemEntity *)item
 {
-    cell.textLabel.text       = [item title];
-    cell.detailTextLabel.text = ([item.markAsRead boolValue]) ? NSLocalizedString(@"Read", @"Message displayed when the item is already read") : NSLocalizedString(@"Unread", @"Message displayed when the item is not read yet");
+    BOOL isItemRead                = [item.markAsRead boolValue];
+    cell.textLabel.text            = [item title];
+    cell.detailTextLabel.text      = (isItemRead) ? NSLocalizedString(@"Read", @"Message displayed when the item is already read") : NSLocalizedString(@"Unread", @"Message displayed when the item is not read yet");
+    cell.detailTextLabel.textColor = (isItemRead) ? [UIColor blackColor] : [UIColor redColor];
 }
 
 @end

@@ -29,6 +29,9 @@
     _currentItem = [RSSItemEntity rss_findByID:_itemID inContext:_mainObjectContext];
     self.title   = _currentItem.title;
     
+    _shareOnFacebookButton.enabled = [SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
+    _shareOnTwitterButton.enabled  = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
+
     [self markItemAsRead];
 }
 
@@ -57,6 +60,16 @@
     }
 }
 
+- (void)shareOnService:(NSString *)serviceType
+{
+    if ([SLComposeViewController isAvailableForServiceType:serviceType])
+    {
+        SLComposeViewController *serviceSheet = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+        [serviceSheet setInitialText:[NSString stringWithFormat:NSLocalizedString(@"Check out this link! %@", @"Message displayed in when you share a link"), _currentItem.link]];
+        [self presentViewController:serviceSheet animated:YES completion:NULL];
+    }
+}
+
 #pragma mark - IBAction
 
 - (IBAction)openInSafariAction:(id)sender
@@ -66,6 +79,16 @@
     if (![[UIApplication sharedApplication] openURL:url]) {
         NSLog(@"Failed to open url: %@", [url description]);
     }
+}
+
+- (IBAction)shareOnTwitterAction:(id)sender
+{
+    [self shareOnService:SLServiceTypeTwitter];
+}
+
+- (IBAction)shareOnFacebookAction:(id)sender
+{
+    [self shareOnService:SLServiceTypeFacebook];
 }
 
 @end

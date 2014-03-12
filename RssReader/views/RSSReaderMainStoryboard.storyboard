@@ -235,25 +235,43 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="Vmw-jt-z9F">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="453"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="393"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RJd-Yq-crj">
-                                <rect key="frame" x="0.0" y="457" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="401" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="Open In Safari">
+                                <state key="normal" title="Share On Twitter">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="openInSafariAction:" destination="9IF-eq-73o" eventType="touchUpInside" id="iJI-5O-VgG"/>
+                                    <action selector="shareOnTwitterAction:" destination="9IF-eq-73o" eventType="touchUpInside" id="wsP-0j-s41"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bu1-Dx-pYe">
+                                <rect key="frame" x="0.0" y="452" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Share On Facebook">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareOnFacebookAction:" destination="9IF-eq-73o" eventType="touchUpInside" id="8d8-k6-Ciw"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="peG-z0-bzj"/>
+                    <navigationItem key="navigationItem" id="peG-z0-bzj">
+                        <barButtonItem key="rightBarButtonItem" title="Open In Safari" id="tIG-Og-t7p">
+                            <connections>
+                                <action selector="openInSafariAction:" destination="9IF-eq-73o" id="wSg-vp-qdT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="shareOnFacebookButton" destination="bu1-Dx-pYe" id="r5i-sX-Isx"/>
+                        <outlet property="shareOnTwitterButton" destination="RJd-Yq-crj" id="uWk-85-P6L"/>
                         <outlet property="webView" destination="Vmw-jt-z9F" id="LD0-ba-8it"/>
                     </connections>
                 </viewController>

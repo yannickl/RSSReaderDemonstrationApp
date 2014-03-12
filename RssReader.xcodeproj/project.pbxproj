@@ -31,6 +31,7 @@
 		F404A0AD18CE641B00B78A97 /* RSSFeedItemXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A0AC18CE641B00B78A97 /* RSSFeedItemXML.m */; };
 		F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */; };
 		F44E1DD218D0E83F00E34061 /* RSSChannelEntity+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */; };
+		F44E1DD418D1002E00E34061 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E1DD318D1002E00E34061 /* Social.framework */; };
 		F48545B418CFA80A002E793E /* NSManagedObject+RssReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */; };
 		F48545B718CFBABB002E793E /* RSSFetchedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */; };
 		F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B918CFC5C3002E793E /* RSSChannelViewController.m */; };
@@ -86,6 +87,7 @@
 		F44E1DCC18D0E6BF00E34061 /* RSSFetchedDataSourceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSourceProtocol.h; sourceTree = "<group>"; };
 		F44E1DD018D0E83F00E34061 /* RSSChannelEntity+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSSChannelEntity+XML.h"; sourceTree = "<group>"; };
 		F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RSSChannelEntity+XML.m"; sourceTree = "<group>"; };
+		F44E1DD318D1002E00E34061 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		F48545B218CFA80A002E793E /* NSManagedObject+RssReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+RssReader.h"; sourceTree = "<group>"; };
 		F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+RssReader.m"; sourceTree = "<group>"; };
 		F48545B518CFBABB002E793E /* RSSFetchedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSource.h; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E1DD418D1002E00E34061 /* Social.framework in Frameworks */,
 				F404A04B18CE534D00B78A97 /* CoreGraphics.framework in Frameworks */,
 				F404A04F18CE534D00B78A97 /* CoreData.framework in Frameworks */,
 				F404A04D18CE534D00B78A97 /* UIKit.framework in Frameworks */,
@@ -148,6 +151,7 @@
 		F404A04718CE534D00B78A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F44E1DD318D1002E00E34061 /* Social.framework */,
 				F404A04818CE534D00B78A97 /* Foundation.framework */,
 				F404A04A18CE534D00B78A97 /* CoreGraphics.framework */,
 				F404A04C18CE534D00B78A97 /* UIKit.framework */,
