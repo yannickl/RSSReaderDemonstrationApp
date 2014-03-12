@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface RSSChannelViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refrechButtonItem;
+
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;
 @property (nonatomic, strong) NSManagedObjectID      *channelID;
+
+
+#pragma mark - IBAction
+
+- (IBAction)refreshAction:(id)sender;
 
 @end

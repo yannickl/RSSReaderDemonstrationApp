@@ -211,7 +211,16 @@
                             <outlet property="delegate" destination="1ad-tJ-LPb" id="Bws-oP-T29"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0DR-wf-GA7"/>
+                    <navigationItem key="navigationItem" id="0DR-wf-GA7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="lnX-kA-v69">
+                            <connections>
+                                <action selector="refreshAction:" destination="1ad-tJ-LPb" id="DW4-Ot-Owr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="refrechButtonItem" destination="lnX-kA-v69" id="DIm-Ui-DEI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UHo-AQ-8mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -226,10 +235,20 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="Vmw-jt-z9F">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="453"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RJd-Yq-crj">
+                                <rect key="frame" x="0.0" y="457" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <state key="normal" title="Open In Safari">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="openInSafariAction:" destination="9IF-eq-73o" eventType="touchUpInside" id="iJI-5O-VgG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

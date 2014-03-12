@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface RSSItemViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @property (nonatomic, strong) NSManagedObjectContext *mainObjectContext;
 @property (nonatomic, strong) NSManagedObjectID      *itemID;
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+#pragma mark - IBAction
+
+- (IBAction)openInSafariAction:(id)sender;
 
 @end

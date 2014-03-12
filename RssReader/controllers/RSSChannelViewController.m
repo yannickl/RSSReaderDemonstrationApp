@@ -88,6 +88,12 @@ static NSString * const kRSSFeedCellName = @"RSSItemCell";
     return _fetchRequest;
 }
 
+#pragma mark - IBAction
+
+- (IBAction)refreshAction:(id)sender
+{
+}
+
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
