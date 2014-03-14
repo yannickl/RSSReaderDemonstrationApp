@@ -20,7 +20,6 @@
 		F404A06918CE534E00B78A97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404A04C18CE534D00B78A97 /* UIKit.framework */; };
 		F404A06A18CE534E00B78A97 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404A04E18CE534D00B78A97 /* CoreData.framework */; };
 		F404A07218CE534E00B78A97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F404A07018CE534E00B78A97 /* InfoPlist.strings */; };
-		F404A07418CE534E00B78A97 /* RssReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A07318CE534E00B78A97 /* RssReaderTests.m */; };
 		F404A08118CE542300B78A97 /* RssReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F404A07F18CE542300B78A97 /* RssReader.xcdatamodeld */; };
 		F404A09218CE560A00B78A97 /* RSSReaderMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F404A09118CE560A00B78A97 /* RSSReaderMainStoryboard.storyboard */; };
 		F404A09918CE57F900B78A97 /* RSSFeedsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F404A09818CE57F900B78A97 /* RSSFeedsViewController.m */; };
@@ -32,6 +31,8 @@
 		F44E1DCB18D0AE8A00E34061 /* RSSChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DCA18D0AE8A00E34061 /* RSSChannelCell.m */; };
 		F44E1DD218D0E83F00E34061 /* RSSChannelEntity+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */; };
 		F44E1DD418D1002E00E34061 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E1DD318D1002E00E34061 /* Social.framework */; };
+		F44E1DD918D39A2C00E34061 /* rssFromBBCNews.xml in Resources */ = {isa = PBXBuildFile; fileRef = F44E1DD818D39A2C00E34061 /* rssFromBBCNews.xml */; };
+		F44E1DDB18D39A7D00E34061 /* RSSFeedXMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F44E1DDA18D39A7D00E34061 /* RSSFeedXMLParserTests.m */; };
 		F48545B418CFA80A002E793E /* NSManagedObject+RssReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */; };
 		F48545B718CFBABB002E793E /* RSSFetchedDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B618CFBABB002E793E /* RSSFetchedDataSource.m */; };
 		F48545BA18CFC5C3002E793E /* RSSChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48545B918CFC5C3002E793E /* RSSChannelViewController.m */; };
@@ -67,7 +68,6 @@
 		F404A06618CE534E00B78A97 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F404A06F18CE534E00B78A97 /* RssReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RssReaderTests-Info.plist"; sourceTree = "<group>"; };
 		F404A07118CE534E00B78A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F404A07318CE534E00B78A97 /* RssReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssReaderTests.m; sourceTree = "<group>"; };
 		F404A08018CE542300B78A97 /* RssReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RssReader.xcdatamodel; sourceTree = "<group>"; };
 		F404A09118CE560A00B78A97 /* RSSReaderMainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RSSReaderMainStoryboard.storyboard; sourceTree = "<group>"; };
 		F404A09718CE57F900B78A97 /* RSSFeedsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFeedsViewController.h; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		F44E1DD018D0E83F00E34061 /* RSSChannelEntity+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSSChannelEntity+XML.h"; sourceTree = "<group>"; };
 		F44E1DD118D0E83F00E34061 /* RSSChannelEntity+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RSSChannelEntity+XML.m"; sourceTree = "<group>"; };
 		F44E1DD318D1002E00E34061 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		F44E1DD818D39A2C00E34061 /* rssFromBBCNews.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = rssFromBBCNews.xml; sourceTree = "<group>"; };
+		F44E1DDA18D39A7D00E34061 /* RSSFeedXMLParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSFeedXMLParserTests.m; sourceTree = "<group>"; };
 		F48545B218CFA80A002E793E /* NSManagedObject+RssReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+RssReader.h"; sourceTree = "<group>"; };
 		F48545B318CFA80A002E793E /* NSManagedObject+RssReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+RssReader.m"; sourceTree = "<group>"; };
 		F48545B518CFBABB002E793E /* RSSFetchedDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSFetchedDataSource.h; sourceTree = "<group>"; };
@@ -187,8 +189,9 @@
 		F404A06D18CE534E00B78A97 /* RssReaderTests */ = {
 			isa = PBXGroup;
 			children = (
-				F404A07318CE534E00B78A97 /* RssReaderTests.m */,
+				F44E1DD718D39A2C00E34061 /* Resources */,
 				F404A06E18CE534E00B78A97 /* Supporting Files */,
+				F44E1DDA18D39A7D00E34061 /* RSSFeedXMLParserTests.m */,
 			);
 			path = RssReaderTests;
 			sourceTree = "<group>";
@@ -293,6 +296,15 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
+		F44E1DD718D39A2C00E34061 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F44E1DD818D39A2C00E34061 /* rssFromBBCNews.xml */,
+			);
+			name = Resources;
+			path = resources;
+			sourceTree = "<group>";
+		};
 		F48545B118CFA80A002E793E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F404A07218CE534E00B78A97 /* InfoPlist.strings in Resources */,
+				F44E1DD918D39A2C00E34061 /* rssFromBBCNews.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F404A07418CE534E00B78A97 /* RssReaderTests.m in Sources */,
+				F44E1DDB18D39A7D00E34061 /* RSSFeedXMLParserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
